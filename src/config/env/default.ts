@@ -1,9 +1,15 @@
 const config = {
     ENV: process.env.NODE_ENV || 'development',
     PORT: process.env.PORT || 3000,
+    API_BASE: process.env.API_BASE || '/api/v1/',
     LOGGER: {
         LEVEL: process.env.LOG_LEVEL || 'debug',
         SILENT: process.env.LOG_SILENT || false
+    },
+    DB: {
+        NAME: process.env.DB_NAME || 'dev',
+        ACCOUNT: process.env.DB_ACCOUNT || 'account',
+        PASSWORD: process.env.DB_PASSWORD || 'password'
     }
 };
 
