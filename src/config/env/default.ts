@@ -7,7 +7,6 @@ const config = {
         SILENT: process.env.LOG_SILENT || false
     },
     DB: {
-        NAME: process.env.DB_NAME || 'dev',
         ACCOUNT: process.env.DB_ACCOUNT || 'account',
         PASSWORD: process.env.DB_PASSWORD || 'password'
     }
