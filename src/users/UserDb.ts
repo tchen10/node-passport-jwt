@@ -24,13 +24,15 @@ export class UserDb {
         };
 
         const dbUserDocs = await this.db.find(query);
-        logger.debug(`UserDb#findByUsername found document`, dbUserDocs);
+        logger.debug(`UserDb#findByUsername: found document`, dbUserDocs);
 
-        if (dbUserDocs.length > 1) {
-            logger.info(`UserDb#findByUsername found more than one document matching ${username}`);
+        if (dbUserDocs.docs.length > 1) {
+            logger.info(`UserDb#findByUsername: found more than one document matching ${username}`);
+            throw new NotFoundError(`User with username ${username} matches multiple documents`);
         }
 
-        if (dbUserDocs.length < 1) {
+        if (dbUserDocs.docs.length < 1) {
+            logger.info(`UserDb#findByUsername: user with username ${username} does not exist`);
             throw new NotFoundError(`User with username ${username} does not exist`);
         }
 

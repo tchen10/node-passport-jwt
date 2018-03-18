@@ -26,9 +26,9 @@ class UserController {
             res.status(200).json({username: dbUser.username});
         } catch (err) {
             if (err instanceof NotFoundError) {
-                res.status(404).json({message: 'Username not found', errors: err});
+                res.status(404).json({error: err.message});
             } else {
-                res.status(400).json({message: 'Bad request', errors: err});
+                res.status(400).json({error: err.message});
             }
         }
     };
