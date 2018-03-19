@@ -1,0 +1,97 @@
+{
+	"info": {
+		"name": "auth-service",
+		"_postman_id": "9ecd67a9-b7d8-d552-edd2-1f2632aa96ae",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /user ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjE1Njc3NDQsInVzZXJuYW1lIjoidXNlcjcifQ.QtgpJWfkTqDuzNjvSfRUsA3yIkUEIgGGJBjVmAVcCTY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"user1\",\n\t\"password\": \"Abc123!\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						""
+					]
+				},
+				"description": "Create a user with username and password"
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users/:name",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjE1Njc3NDQsInVzZXJuYW1lIjoidXNlcjcifQ.QtgpJWfkTqDuzNjvSfRUsA3yIkUEIgGGJBjVmAVcCTY"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "localhost:3000/users/user1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"user1"
+					]
+				},
+				"description": "Get a user by username"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"user7\",\n  \"password\": \"Abc123!\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Login using username and password"
+			},
+			"response": []
+		}
+	]
+}
