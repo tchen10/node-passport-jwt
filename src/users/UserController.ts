@@ -23,6 +23,7 @@ class UserController {
 
         try {
             const dbUser = await new UserDb().findByUsername(req.params.name);
+            if (dbUser == null) throw new NotFoundError(`Username does not exist`);
             res.status(200).json({username: dbUser.username});
         } catch (err) {
             if (err instanceof NotFoundError) {
