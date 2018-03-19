@@ -55,7 +55,7 @@ class AuthController {
         const token = jwt.encode({
             exp: expires,
             username: user.username
-        }, process.env.JWT_SECRET);
+        }, config.JWT_SECRET);
 
         return {
             token: 'JWT ' + token,

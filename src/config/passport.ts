@@ -1,9 +1,10 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import * as passport from 'passport';
 import { UserDb } from '../users/UserDb';
+import { config } from './index';
 
 const options = {
-    secretOrKey: process.env.JWT_SECRET,
+    secretOrKey: config.JWT_SECRET,
     jwtFromRequest: ExtractJwt.fromAuthHeader()
 };
 
