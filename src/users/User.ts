@@ -14,7 +14,7 @@ export class User implements IUser {
         this.encryptPassword(password);
     }
 
-    encryptPassword(passwordInput: string): void {
+    private encryptPassword(passwordInput: string): void {
         const salt = bcrypt.genSaltSync(10);
         this.password = bcrypt.hashSync(passwordInput, salt);
     }

@@ -1,7 +1,6 @@
 import { cloudant } from '../config/db';
 import { IUser, User } from './User';
 import { logger } from '../config/logger';
-import { NotFoundError } from '../errors/NotFoundError';
 
 export class UserDb {
     private db;
@@ -25,14 +24,9 @@ export class UserDb {
         const dbUserDocs = await this.db.find(query);
         logger.debug(`UserDb#findByUsername: found document`, dbUserDocs);
 
-        if (dbUserDocs.docs.length > 1) {
-            logger.info(`UserDb#findByUsername: found more than one document matching ${username}`);
-            throw new NotFoundError(`User with username ${username} matches multiple documents`);
-        }
-
         if (dbUserDocs.docs.length < 1) {
             logger.info(`UserDb#findByUsername: user with username ${username} does not exist`);
-            throw new NotFoundError(`User with username ${username} does not exist`);
+            return null;
         }
 
         return dbUserDocs.docs[0];

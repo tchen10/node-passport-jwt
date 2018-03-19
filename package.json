@@ -6,9 +6,9 @@
   "scripts": {
     "build": "npm run lint && tsc",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "dev": "nodemon --watch 'src' --ignore 'src/**/*spec.ts' --exec 'ts-node --require dotenv/config' src/index.ts",
+    "dev": "nodemon --watch 'src' --exec 'ts-node --require dotenv/config' src/index.ts",
     "start": "npm run build && node --require dotenv/config dist/index.js",
-    "test": "mocha --compilers ts-node/register --watch-extensions ts 'src/**/*spec.ts' --watch",
+    "test": "LOG_SILENT=true mocha --require ts-node/register --watch-extensions ts 'test/**/*test.ts' --watch",
     "postbuild": "cp -R node_modules dist/. && cp package*.json dist/."
   },
   "author": "",
@@ -37,6 +37,7 @@
     "nodemon": "^1.17.2",
     "ntypescript": "^1.201706190042.1",
     "nyc": "^11.6.0",
+    "sinon": "^4.4.6",
     "source-map-support": "^0.5.4",
     "supertest": "^3.0.0",
     "ts-node": "^5.0.1",

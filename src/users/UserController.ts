@@ -14,7 +14,7 @@ class UserController {
             res.status(201).json({message: 'User saved successfully!', id: dbUser.id});
         } catch (err) {
             logger.error(`UserController#create failed. ${err}`);
-            res.status(400).json({message: 'Bad request', errors: err});
+            res.status(400).json({message: 'Bad request', error: err.message});
         }
     };
 
