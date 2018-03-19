@@ -3,9 +3,9 @@ import { config } from './config';
 
 const express = require('express');
 const expressValidator = require('express-validator');
+require('./config/passport');
 
 const app = express();
-
 app.use(bodyParser.json());
 app.use(expressValidator());
 

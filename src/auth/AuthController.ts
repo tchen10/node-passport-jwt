@@ -2,21 +2,17 @@ import * as jwt from 'jwt-simple';
 import { IUser, User } from '../users/User';
 import { logger } from '../config/logger';
 import { UserDb } from '../users/UserDb';
-import moment = require('moment');
-import * as passport from 'passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
 import { NotFoundError } from '../errors/NotFoundError';
+import moment = require('moment');
+import { config } from '../config';
+import * as passport from 'passport';
 
 class AuthController {
-    public initialize = () => {
-        passport.use('jwt', this.getStrategy());
-        passport.initialize();
-    };
 
     public authenticate = async (req, res, next) => {
-        if (req.path.includes(process.env.API_BASE + 'login')) return next();
+        logger.info('AuthController#authenticate: Routing through authentication middleware');
 
-        logger.info('authenticating user');
+        if (req.path.includes(config.API_BASE + 'login')) return next();
 
         passport.authenticate('jwt', {session: false, failWithError: true}, (err, user, info) => {
             if (err) {
@@ -27,7 +23,7 @@ class AuthController {
                 if (info.name === 'TokenExpiredError') {
                     return res.status(401).json({message: 'Your token has expired. Please generate a new one'});
                 } else {
-                    return res.status(401).son({message: info.message});
+                    return res.status(401).json({message: info.message});
                 }
             }
 
@@ -62,32 +58,10 @@ class AuthController {
         }, process.env.JWT_SECRET);
 
         return {
-            token: 'JWT' + token,
+            token: 'JWT ' + token,
             expires: moment.unix(expires).format(),
             username: user.username
         };
-    };
-
-    private getStrategy = () => {
-        const params = {
-            secretOrKey: process.env.JWT_SECRET,
-            jwtFromRequest: ExtractJwt.fromAuthHeader(),
-            passReqToCallback: true
-        };
-
-        return new Strategy(params, (req, payload: any, done) => {
-            return new UserDb().findByUsername(payload.username)
-                .then(data => {
-                    if (data === null) {
-                        return done(null, false, {message: 'The user in the token was not found'});
-                    }
-
-                    return done(null, {username: data.username});
-                })
-                .catch(err => {
-                    return done(err);
-                });
-        });
     };
 }
 

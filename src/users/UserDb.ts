@@ -19,8 +19,7 @@ export class UserDb {
             selector: {
                 username: username
             },
-            fields: ['username', 'password'
-            ]
+            fields: ['username', 'password']
         };
 
         const dbUserDocs = await this.db.find(query);
